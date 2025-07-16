@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎉 Happy Birthday!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fff0f5;
+      font-family: 'Comic Sans MS', cursive;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    #startBtn {
+      margin-top: 30vh;
+      padding: 14px 28px;
+      font-size: 1.5rem;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    #banner, #cake, iframe {
+      display: none;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    #banner {
+      font-size: 2.5rem;
+      color: #d6336c;
+      margin-top: 20px;
+      animation: dropBanner 1.2s forwards;
+    }
+
+    @keyframes dropBanner {
+      0% { transform: translateY(-100px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    #cake {
+      width: 260px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(255, 192, 203, 0.9);
+    }
+
+    iframe {
+      margin-top: 30px;
+      width: 300px;
+      height: 100px;
+      border: none;
+    }
+
+    /* Classic falling confetti */
+    .confetti {
+      position: fixed;
+      top: -10px;
+      width: 10px;
+      height: 10px;
+      background-color: #ff69b4;
+      animation: fall 5s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+
+    /* Interactive click confetti burst */
+    .burst {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #ff69b4;
+      border-radius: 50%;
+      animation: burstAnim 1s ease-out forwards;
+    }
+
+    @keyframes burstAnim {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(3); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <button id="startBtn">Start the Party!</button>
+  <div id="banner">🎉 Happy Birthday, Mama Ruby! 🎉</div>
+  <img id="cake" src="https://media.giphy.com/media/27ppQUOxe7KlG/giphy.gif" alt="Birthday Cake" />
+  <iframe id="audio" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/overtoneshock/8-bit-happy-birthday&auto_play=true&hide_related=false&show_comments=false&show_user=false&show_reposts=false&visual=true"></iframe>
+
+  <script>
+    const startBtn = document.getElementById('startBtn');
+    const banner = document.getElementById('banner');
+    const cake = document.getElementById('cake');
+    const audio = document.getElementById('audio');
+
+    startBtn.onclick = () => {
+      startBtn.style.display = 'none';
+      banner.style.display = 'block';
+      cake.style.display = 'block';
+      audio.style.display = 'block';
+
+      setTimeout(() => {
+        banner.style.opacity = 1;
+        cake.style.opacity = 1;
+        audio.style.opacity = 1;
+      }, 100);
+
+      // Classic falling confetti
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 75%)`;
+        confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        document.body.appendChild(confetti);
+      }
+    };
+
+    // Interactive click confetti burst
+    document.body.addEventListener('click', (e) => {
+      for (let i = 0; i < 10; i++) {
+        const burst = document.createElement('div');
+        burst.className = 'burst';
+        burst.style.left = (e.clientX + Math.random() * 40 - 20) + 'px';
+        burst.style.top = (e.clientY + Math.random() * 40 - 20) + 'px';
+        burst.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 75%)`;
+        document.body.appendChild(burst);
+        setTimeout(() => burst.remove(), 1000);
+      }
+    });
+  </script>
+</body>
+</html>
